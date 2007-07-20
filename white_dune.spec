@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %configure --with-optimization --with-buginlesstif
 
 rm Makefile
-cd src && %make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+cd src && make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install
 
