@@ -1,7 +1,7 @@
 %define name 	white_dune
 %define version	0.28
 %define patch	12
-%define release %mkrel 1.pl%{pl}.1
+%define release %mkrel 1.pl%{patch}.1
 
 Name:		%{name}
 Summary:	A graphical VRML97 editor and animation tool
