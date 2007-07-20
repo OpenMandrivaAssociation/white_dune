@@ -14,8 +14,11 @@ BuildRequires:	jpeg-devel
 BuildRequires:	png-devel
 BuildRequires:	bison
 BuildRequires:	flex
-Buildrequires:	lesstif-devel
+BuildRequires:	xlsfonts
+BuildRequires:	lesstif-devel
 BuildRequires:	libMesaGLU-devel
+BuildRequires:	libxi-devel
+BuildRequires:	libxmu-devel
 URL:		http://www.csv.ica.uni-stuttgart.de/vrml/dune
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 License:	GPL
