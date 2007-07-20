@@ -1,13 +1,13 @@
-%define name white_dune
-%define version 0.28
-%define realvers 0.28pl11
-%define release 0.pl11.1mdk
+%define name 	white_dune
+%define version	0.28
+%define patch	12
+%define release %mkrel 1.pl%{pl}.1
 
 Name:		%{name}
 Summary:	A graphical VRML97 editor and animation tool
 Version:	%{version}
 Release:	%{release}
-Source:		%{name}-%{realvers}.tar.bz2
+Source:		http://129.69.35.12/dune/%{name}-%{version}pl%{patch}.tar.gz
 Patch0:		white_dune_missing_includes.patch.bz2
 Group:		Graphics
 BuildRequires:	jpeg-devel
@@ -41,7 +41,7 @@ the source package.
 %prep
 rm -rf $RPM_BUILD_ROOT
 
-%setup -q -n %{name}-%{realvers}
+%setup -q -n %{name}-%{version}pl%{patch}
 
 %patch0 -p 1
 
@@ -50,30 +50,30 @@ rm -rf $RPM_BUILD_ROOT
 %configure --with-optimization --with-buginlesstif
 
 rm Makefile
-cd src && make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+cd src && %make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install
 
-mkdir -p $RPM_BUILD_ROOT/usr/X11R6/bin
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 
-install -s -m 755 bin/dune $RPM_BUILD_ROOT/usr/X11R6/bin/dune
+install -s -m 755 bin/dune $RPM_BUILD_ROOT%{_bindir}/dune
 install -m 644 man/dune.1 $RPM_BUILD_ROOT%{_mandir}/man1/dune.1
 
 
 #menu
-(cd $RPM_BUILD_ROOT
-mkdir -p ./usr/lib/menu
-cat > ./usr/lib/menu/%{name} <<EOF
-?package(%{name}):\
-command="/usr/X11R6/bin/dune"\
-title="White Dune"\
-longtitle="VRML 97 Editor"\
-needs="x11"\
-icon="graphics_section.png"\
-section="Multimedia/Graphics"
+
+mkdir -p %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+[Desktop Entry]
+Name=%{name}
+Comment=%{Summary}
+Exec=%{_bindir}/dune
+Icon=graphics_section.png
+Terminal=false
+Type=Application
+Categories=Graphics;3DGraphics;
 EOF
-)
 
 %post
 %update_menus
@@ -88,6 +88,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc docs
-/usr/X11R6/bin/dune
+%_bindir/dune
 %_mandir/man1/*
-%_menudir/*
+%_datadir/applications/*.desktop
