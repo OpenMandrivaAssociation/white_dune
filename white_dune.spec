@@ -1,7 +1,7 @@
 %define name 	white_dune
 %define version	0.28
 %define patch	12
-%define release %mkrel 1.pl%{patch}.1
+%define release %mkrel 1.pl%{patch}.2
 
 Name:		%{name}
 Summary:	A graphical VRML97 editor and animation tool
@@ -70,7 +70,7 @@ mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=%{name}
-Comment=%{Summary}
+Comment=A graphical VRML97 editor and animation tool
 Exec=%{_bindir}/dune
 Icon=graphics_section.png
 Terminal=false
