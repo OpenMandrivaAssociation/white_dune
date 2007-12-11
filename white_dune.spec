@@ -72,7 +72,7 @@ cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 Name=%{name}
 Comment=A graphical VRML97 editor and animation tool
 Exec=%{_bindir}/dune
-Icon=graphics_section.png
+Icon=graphics_section
 Terminal=false
 Type=Application
 Categories=Graphics;3DGraphics;
