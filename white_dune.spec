@@ -16,7 +16,7 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	xlsfonts
 BuildRequires:	lesstif-devel
-BuildRequires:	libMesaGLU-devel
+BuildRequires:	mesaglu-devel
 BuildRequires:	libxi-devel
 BuildRequires:	libxmu-devel
 URL:		http://www.csv.ica.uni-stuttgart.de/vrml/dune
