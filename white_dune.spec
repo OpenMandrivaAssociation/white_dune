@@ -1,12 +1,9 @@
-%define name 	white_dune
-%define version	0.28
-%define patch	12
-%define release %mkrel 1.pl%{patch}.2
+%define patch	13
 
-Name:		%{name}
+Name:		white_dune
 Summary:	A graphical VRML97 editor and animation tool
-Version:	%{version}
-Release:	%{release}
+Version:	0.28
+Release:	%mkrel 1.pl%{patch}.1
 Source:		http://129.69.35.12/dune/%{name}-%{version}pl%{patch}.tar.gz
 Patch0:		white_dune_missing_includes.patch.bz2
 Group:		Graphics
@@ -21,7 +18,7 @@ BuildRequires:	libxi-devel
 BuildRequires:	libxmu-devel
 URL:		http://www.csv.ica.uni-stuttgart.de/vrml/dune
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-License:	GPL
+License:	GPLv2+
 
 %description
 The dune program is a graphical VRML97 editor and animation tool.
@@ -42,30 +39,25 @@ the commercial Linux XIG X11 Server (DX/platium) require recompilation of
 the source package.
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
+rm -rf %{buildroot}
 %setup -q -n %{name}-%{version}pl%{patch}
-
 %patch0 -p 1
 
 %build
-
 %configure --with-optimization --with-buginlesstif
 
 rm Makefile
 cd src && make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_mandir}/man1
 
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
-
-install -s -m 755 bin/dune $RPM_BUILD_ROOT%{_bindir}/dune
-install -m 644 man/dune.1 $RPM_BUILD_ROOT%{_mandir}/man1/dune.1
+install -s -m 755 bin/dune %{buildroot}%{_bindir}/dune
+install -m 644 man/dune.1 %{buildroot}%{_mandir}/man1/dune.1
 
 
 #menu
-
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
@@ -84,13 +76,12 @@ EOF
 %postun
 %clean_menus
 
-
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
 %doc docs
-%_bindir/dune
-%_mandir/man1/*
-%_datadir/applications/*.desktop
+%{_bindir}/dune
+%{_mandir}/man1/*
+%{_datadir}/applications/*.desktop
