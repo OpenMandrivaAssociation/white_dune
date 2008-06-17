@@ -1,11 +1,11 @@
-%define patch	13
+%define patch	14
 
 Name:		white_dune
 Summary:	A graphical VRML97 editor and animation tool
 Version:	0.28
 Release:	%mkrel 1.pl%{patch}.1
 Source:		http://129.69.35.12/dune/%{name}-%{version}pl%{patch}.tar.gz
-Patch0:		white_dune_missing_includes.patch.bz2
+Patch0:		white_dune_missing_includes.patch
 Group:		Graphics
 BuildRequires:	jpeg-devel
 BuildRequires:	png-devel
