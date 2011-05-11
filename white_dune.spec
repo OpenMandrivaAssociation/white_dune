@@ -1,11 +1,8 @@
-%define patch	14
-
 Name:		white_dune
 Summary:	A graphical VRML97 editor and animation tool
-Version:	0.28
-Release:	%mkrel 1.pl%{patch}.2
-Source:		http://129.69.35.12/dune/%{name}-%{version}pl%{patch}.tar.gz
-Patch0:		white_dune_missing_includes.patch
+Version:	0.30pl10
+Release:	%mkrel 1
+Source:		http://129.69.35.12/dune/%{name}-%{version}.tar.gz
 Group:		Graphics
 BuildRequires:	jpeg-devel
 BuildRequires:	png-devel
@@ -14,9 +11,14 @@ BuildRequires:	flex
 BuildRequires:	xlsfonts
 BuildRequires:	lesstif-devel
 BuildRequires:	mesaglu-devel
+BuildRequires:	libx11-devel
 BuildRequires:	libxi-devel
 BuildRequires:	libxmu-devel
-URL:		http://www.csv.ica.uni-stuttgart.de/vrml/dune
+BuildRequires:	libxt-devel
+BuildRequires:	expat-devel
+BuildRequires:	usb0.1-devel
+Obsoletes:	hackwhite_dune < %version
+URL:		http://129.69.35.12/dune/home.html
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 License:	GPLv2+
 
@@ -39,15 +41,11 @@ the commercial Linux XIG X11 Server (DX/platium) require recompilation of
 the source package.
 
 %prep
-rm -rf %{buildroot}
-%setup -q -n %{name}-%{version}pl%{patch}
-%patch0 -p 1
+%setup -qn %{name}-%{version}
 
 %build
-%configure --with-optimization --with-buginlesstif
-
-rm Makefile
-cd src && make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+%configure2_5x --with-optimization --without-usrlocalinclude
+%make
 
 %install
 mkdir -p %{buildroot}%{_bindir}
@@ -55,7 +53,6 @@ mkdir -p %{buildroot}%{_mandir}/man1
 
 install -s -m 755 bin/dune %{buildroot}%{_bindir}/dune
 install -m 644 man/dune.1 %{buildroot}%{_mandir}/man1/dune.1
-
 
 #menu
 mkdir -p %{buildroot}%{_datadir}/applications
