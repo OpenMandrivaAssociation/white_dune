@@ -1,0 +1,44 @@
+diff -up wdune-1.874/configure.in.1~ wdune-1.874/configure.in
+--- wdune-1.874/configure.in.1~	2020-03-12 23:22:21.000000000 +0100
++++ wdune-1.874/configure.in	2020-06-10 15:39:42.914788483 +0200
+@@ -1070,10 +1070,13 @@ fi
+ HAVE_OMP_FLAGS=""
+ if test "X_$OMP" != "X_no" ; then
+  AC_CHECK_HEADER(omp.h,HAVE_OMP_FLAGS=-fopenmp;AC_DEFINE(HAVE_OMP))
+- if test "X_$HAVE_OMP_FLAGS" != ""; then
++ if test "X_$HAVE_OMP_FLAGS" != "X_"; then
+      CFLAGS="$CFLAGS $HAVE_OMP_FLAGS"
+      CXXFLAGS="$CXXFLAGS $HAVE_OMP_FLAGS"
++     LIBS="$LIBS $HAVE_OMP_FLAGS"
+-     AC_HAVE_LIBRARY(gomp)
++     # AC_HAVE_LIBRARY(gomp)
++     # Adding -lgomp is harmful -- -fopenmp already adds the library,
++     # but -lgomp goes wrong when using LLVM libomp instead
+  fi
+ fi
+ 
+diff -up wdune-1.874/src/dune.rc.1~ wdune-1.874/src/dune.rc
+--- wdune-1.874/src/dune.rc.1~	2020-03-12 23:32:27.000000000 +0100
++++ wdune-1.874/src/dune.rc	2020-06-10 15:31:08.923322201 +0200
+@@ -13007,7 +13007,8 @@ BEGIN
+     ID_DE_NEW_PIXEL_TEXTURE    "Fuege einen neuen PixelTexture Knoten ein (braucht Appearance)\nPixelTexture (braucht Appearance)"
+     ID_DE_NEW_MOVIE_TEXTURE    "Fuege einen neuen MovieTexture Knoten ein (braucht Appearance)\nMovieTexture (braucht Appearance)"
+     ID_DE_NEW_TEXTURE_TRANSFORM "Fuege einen neuen TextureTransform Knoten ein (braucht Appearance)\nTextureTransform (braucht Appearance)"
+-    ID_DE_NEW_TEXTURE_PROPERTIES "Fuege einen neuen X3D TextureProperties Knoten ein\nX3D TextureProperties"END
++    ID_DE_NEW_TEXTURE_PROPERTIES "Fuege einen neuen X3D TextureProperties Knoten ein\nX3D TextureProperties"
++END
+ 
+ STRINGTABLE DISCARDABLE
+ BEGIN
+diff -up wdune-1.874/src/xerrorhandler.cpp.1~ wdune-1.874/src/xerrorhandler.cpp
+--- wdune-1.874/src/xerrorhandler.cpp.1~	2020-03-12 23:22:21.000000000 +0100
++++ wdune-1.874/src/xerrorhandler.cpp	2020-06-10 15:31:08.923322201 +0200
+@@ -291,7 +291,7 @@ int DuneApp::emergency_rescue(int sig)
+  *  Handler for fatal Xt Errors: try to save files
+  */ 
+ 
+-   void fatal_xthandler(char* message)
++   void fatal_xthandler(char* message) __attribute__((noreturn))
+       {
+       bool exitFlag = true;
+       // the following error is (hopefully) not really fatal for white_dune

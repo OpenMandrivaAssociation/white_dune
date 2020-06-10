@@ -1,24 +1,23 @@
 Name:		white_dune
 Summary:	A graphical VRML97 editor and animation tool
-Version:	0.30pl10
-Release:	%mkrel 1
-Source:		http://129.69.35.12/dune/%{name}-%{version}.tar.gz
+Version:	1.874
+Release:	1
+Source:		ftp://ftp.ourproject.org/pub/wdune/wdune-%{version}.tar.bz2
+Patch0:		wdune-1.874-compile.patch
 Group:		Graphics
-BuildRequires:	jpeg-devel
-BuildRequires:	png-devel
+BuildRequires:	pkgconfig(libjpeg)
+BuildRequires:	pkgconfig(libpng)
 BuildRequires:	bison
 BuildRequires:	flex
-BuildRequires:	xlsfonts
-BuildRequires:	lesstif-devel
-BuildRequires:	mesaglu-devel
-BuildRequires:	libx11-devel
-BuildRequires:	libxi-devel
-BuildRequires:	libxmu-devel
-BuildRequires:	libxt-devel
-BuildRequires:	expat-devel
-BuildRequires:	usb0.1-devel
-Obsoletes:	hackwhite_dune < %version
-URL:		http://129.69.35.12/dune/home.html
+BuildRequires:	motif-devel
+BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xi)
+BuildRequires:	pkgconfig(xmu)
+BuildRequires:	pkgconfig(xt)
+BuildRequires:	pkgconfig(expat)
+BuildRequires:	autoconf
+URL:		http://wdune.ourproject.org/
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 License:	GPLv2+
 
@@ -41,11 +40,13 @@ the commercial Linux XIG X11 Server (DX/platium) require recompilation of
 the source package.
 
 %prep
-%setup -qn %{name}-%{version}
+%autosetup -p1 -n wdune-%{version}
+# We patch configure.in for gomp vs. omp
+autoconf
+%configure --with-optimization --without-usrlocalinclude
 
 %build
-%configure2_5x --with-optimization --without-usrlocalinclude
-%make
+%make_build
 
 %install
 mkdir -p %{buildroot}%{_bindir}
@@ -58,7 +59,7 @@ install -m 644 man/dune.1 %{buildroot}%{_mandir}/man1/dune.1
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
-Name=%{name}
+Name=White Dune
 Comment=A graphical VRML97 editor and animation tool
 Exec=%{_bindir}/dune
 Icon=graphics_section
@@ -66,19 +67,6 @@ Terminal=false
 Type=Application
 Categories=Graphics;3DGraphics;
 EOF
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
-
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
