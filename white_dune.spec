@@ -16,10 +16,19 @@ BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(expat)
+BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	autoconf
 URL:		http://wdune.ourproject.org/
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 License:	GPLv2+
+# Default editors for external bits as passed to
+# configure below
+Suggests:	imagemagick
+Suggests:	falkon
+Suggests:	krita
+Suggests:	kwrite
+Suggests:	kwave
+Suggests:	kdenlive
 
 %description
 The dune program is a graphical VRML97 editor and animation tool.
@@ -43,7 +52,15 @@ the source package.
 %autosetup -p1 -n wdune-%{version}
 # We patch configure.in for gomp vs. omp
 autoconf
-%configure --with-optimization --without-usrlocalinclude
+%configure --with-optimization \
+	--without-usrlocalinclude \
+	--with-imageconverter=%{_bindir}/convert \
+	--with-wwwbrowser=%{_bindir}/falkon \
+	--with-imageeditor=%{_bindir}/krita \
+	--with-imageeditor4kids=%{_bindir}/krita \
+	--with-x11-editor=%{_bindir}/kwrite \
+	--with-soundeditor=%{_bindir}/kwave \
+	--with-movieeditor=%{_bindir}/kdenlive
 
 %build
 %make_build
