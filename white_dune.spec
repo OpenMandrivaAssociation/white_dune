@@ -17,7 +17,15 @@ BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(libavcodec)
+BuildRequires:	pkgconfig(libavutil)
+BuildRequires:	pkgconfig(libavformat)
+BuildRequires:	pkgconfig(libswscale)
+BuildRequires:	pkgconfig(libswresample)
+BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	jdk-current
 BuildRequires:	autoconf
+BuildRequires:	fonts-ttf-bitstream-vera
 URL:		http://wdune.ourproject.org/
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 License:	GPLv2+
@@ -52,6 +60,7 @@ the source package.
 %autosetup -p1 -n wdune-%{version}
 # We patch configure.in for gomp vs. omp
 autoconf
+. %{_sysconfdir}/profile.d/90java.sh
 %configure --with-optimization \
 	--without-usrlocalinclude \
 	--with-imageconverter=%{_bindir}/convert \
