@@ -17,19 +17,6 @@ diff -up wdune-1.874/configure.in.1~ wdune-1.874/configure.in
   fi
  fi
  
-diff -up wdune-1.874/src/dune.rc.1~ wdune-1.874/src/dune.rc
---- wdune-1.874/src/dune.rc.1~	2020-03-12 23:32:27.000000000 +0100
-+++ wdune-1.874/src/dune.rc	2020-06-10 15:31:08.923322201 +0200
-@@ -13007,7 +13007,8 @@ BEGIN
-     ID_DE_NEW_PIXEL_TEXTURE    "Fuege einen neuen PixelTexture Knoten ein (braucht Appearance)\nPixelTexture (braucht Appearance)"
-     ID_DE_NEW_MOVIE_TEXTURE    "Fuege einen neuen MovieTexture Knoten ein (braucht Appearance)\nMovieTexture (braucht Appearance)"
-     ID_DE_NEW_TEXTURE_TRANSFORM "Fuege einen neuen TextureTransform Knoten ein (braucht Appearance)\nTextureTransform (braucht Appearance)"
--    ID_DE_NEW_TEXTURE_PROPERTIES "Fuege einen neuen X3D TextureProperties Knoten ein\nX3D TextureProperties"END
-+    ID_DE_NEW_TEXTURE_PROPERTIES "Fuege einen neuen X3D TextureProperties Knoten ein\nX3D TextureProperties"
-+END
- 
- STRINGTABLE DISCARDABLE
- BEGIN
 diff -up wdune-1.874/src/xerrorhandler.cpp.1~ wdune-1.874/src/xerrorhandler.cpp
 --- wdune-1.874/src/xerrorhandler.cpp.1~	2020-03-12 23:22:21.000000000 +0100
 +++ wdune-1.874/src/xerrorhandler.cpp	2020-06-10 15:31:08.923322201 +0200
