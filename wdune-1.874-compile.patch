@@ -1,7 +1,7 @@
-diff -up wdune-1.874/configure.in.1~ wdune-1.874/configure.in
---- wdune-1.874/configure.in.1~	2020-03-12 23:22:21.000000000 +0100
-+++ wdune-1.874/configure.in	2020-06-10 15:39:42.914788483 +0200
-@@ -1070,10 +1070,13 @@ fi
+diff -up wdune-1.908/configure.in.1~ wdune-1.908/configure.in
+--- wdune-1.908/configure.in.1~	2020-07-08 16:04:14.000000000 +0200
++++ wdune-1.908/configure.in	2020-07-10 19:30:24.342928272 +0200
+@@ -1091,14 +1091,10 @@ fi
  HAVE_OMP_FLAGS=""
  if test "X_$OMP" != "X_no" ; then
   AC_CHECK_HEADER(omp.h,HAVE_OMP_FLAGS=-fopenmp;AC_DEFINE(HAVE_OMP))
@@ -9,18 +9,19 @@ diff -up wdune-1.874/configure.in.1~ wdune-1.874/configure.in
 + if test "X_$HAVE_OMP_FLAGS" != "X_"; then
       CFLAGS="$CFLAGS $HAVE_OMP_FLAGS"
       CXXFLAGS="$CXXFLAGS $HAVE_OMP_FLAGS"
-+     LIBS="$LIBS $HAVE_OMP_FLAGS"
--     AC_HAVE_LIBRARY(gomp)
-+     # AC_HAVE_LIBRARY(gomp)
-+     # Adding -lgomp is harmful -- -fopenmp already adds the library,
-+     # but -lgomp goes wrong when using LLVM libomp instead
+-     if test "X_$CLANG" != "X_"; then
+-        export LIBS="$LIBS -fopenmp"
+-     else
+-        AC_HAVE_LIBRARY(gomp)
+-     fi
++     export LIBS="$LIBS -fopenmp"
   fi
  fi
  
-diff -up wdune-1.874/src/xerrorhandler.cpp.1~ wdune-1.874/src/xerrorhandler.cpp
---- wdune-1.874/src/xerrorhandler.cpp.1~	2020-03-12 23:22:21.000000000 +0100
-+++ wdune-1.874/src/xerrorhandler.cpp	2020-06-10 15:31:08.923322201 +0200
-@@ -291,7 +291,7 @@ int DuneApp::emergency_rescue(int sig)
+diff -up wdune-1.908/src/xerrorhandler.cpp.1~ wdune-1.908/src/xerrorhandler.cpp
+--- wdune-1.908/src/xerrorhandler.cpp.1~	2020-07-08 16:04:14.000000000 +0200
++++ wdune-1.908/src/xerrorhandler.cpp	2020-07-10 19:22:39.105312230 +0200
+@@ -304,7 +304,7 @@ int DuneApp::emergency_rescue(int sig)
   *  Handler for fatal Xt Errors: try to save files
   */ 
  
