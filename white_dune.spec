@@ -2,7 +2,7 @@
 
 Name:		white_dune
 Summary:	A graphical VRML97 editor and animation tool
-Version:	1.912
+Version:	1.921
 Release:	1
 Source:		ftp://ftp.ourproject.org/pub/wdune/wdune-%{version}.tar.bz2
 Patch0:		wdune-1.874-compile.patch
