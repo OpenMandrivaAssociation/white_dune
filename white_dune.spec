@@ -19,11 +19,12 @@ BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xt)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(freetype2)
-BuildRequires:	pkgconfig(libavcodec)
-BuildRequires:	pkgconfig(libavutil)
-BuildRequires:	pkgconfig(libavformat)
-BuildRequires:	pkgconfig(libswscale)
-BuildRequires:	pkgconfig(libswresample)
+#BuildRequires:	pkgconfig(libavcodec)
+#BuildRequires:	pkgconfig(libavutil)
+#BuildRequires:	pkgconfig(libavformat)
+#BuildRequires:	pkgconfig(libswscale)
+#BuildRequires:	pkgconfig(libswresample)
+BuildRequires: ffmpeg4-devel
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	jdk-current
 BuildRequires:	autoconf
