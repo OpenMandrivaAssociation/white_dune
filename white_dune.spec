@@ -75,6 +75,8 @@ autoconf
 	--with-movieeditor=%{_bindir}/kdenlive
 
 %build
+export CC=gcc
+export CXX=g++
 %make_build
 
 %install
