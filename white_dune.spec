@@ -28,7 +28,7 @@ BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	jdk-current
 BuildRequires:	autoconf
 BuildRequires:	fonts-ttf-bitstream-vera
-URL:		http://wdune.ourproject.org/
+URL:		https://wdune.ourproject.org/
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 License:	GPLv2+
 # Default editors for external bits as passed to
