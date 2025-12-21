@@ -7,6 +7,10 @@ Release:	2
 Source:		ftp://ftp.ourproject.org/pub/wdune/wdune-%{version}.tar.bz2
 Patch0:		wdune-1.874-compile.patch
 Group:		Graphics
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	bison
