@@ -1,0 +1,15 @@
+Include Xmu header when HAVE_INCLUDE_X11_XMU is set.
+
+--- a/src/swt/motif/swt.c
++++ b/src/swt/motif/swt.c
+@@ -30,6 +30,10 @@
+ 
+ #include <Xm/Xm.h>
+ #include <Xm/BulletinB.h>
++#ifdef HAVE_INCLUDE_X11_XMU
++#include <X11/Xmu/StdCmap.h>
++#include <X11/Xatom.h>
++#endif
+ #include <Xm/CascadeB.h>
+ #include <Xm/DragDrop.h>
+ #include <Xm/DrawingA.h>
