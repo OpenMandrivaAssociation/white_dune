@@ -1,0 +1,52 @@
+--- a/src/swt/rc/rclex.l	2020-09-02 07:18:07.000000000 +0200
++++ b/src/swt/rc/rclex.l	2026-08-14 23:21:30.146557924 +0200
+@@ -25,6 +25,7 @@
+ 
+ #include <ctype.h>
+ #include <assert.h>
++#include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+ 
+@@ -239,8 +240,7 @@
+ /* Handle a C preprocessor line.  */
+ 
+ static void
+-cpp_line (s)
+-     const char *s;
++cpp_line (const char *s)
+ {
+   int line;
+   char *send, *fn;
+@@ -281,9 +281,7 @@
+    merged separated by whitespace are merged, as in C.  */
+ 
+ static char *
+-handle_quotes (input, len)
+-     const char *input;
+-     unsigned long *len;
++handle_quotes (const char *input, unsigned long *len)
+ {
+   char *ret, *s;
+   const char *t;
+@@ -429,8 +427,7 @@
+ /* Allocate a string of a given length.  */
+ 
+ static char *
+-get_string (len)
+-     int len;
++get_string (int len)
+ {
+   struct alloc_string *as;
+ 
+--- a/src/swt/rc/Makefile.in	2020-09-02 05:32:53.000000000 +0200
++++ b/src/swt/rc/Makefile.in	2026-08-14 23:21:30.146628335 +0200
+@@ -10,7 +10,7 @@
+ LIBDIRS =
+ INCDIRS = -I../include
+ # WARNINGS = -Wall -Wwrite-strings
+-CFLAGS = -g $(WARNINGS) $(INCDIRS) @CFLAGS@
++CFLAGS = -g $(WARNINGS) $(INCDIRS) @CFLAGS@ -std=gnu17
+ MAKEDEPEND=gcc -MM
+ YFLAGS = -d
+ 

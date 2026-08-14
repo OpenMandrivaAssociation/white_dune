@@ -7,6 +7,7 @@ Release:	3
 Source:		ftp://ftp.ourproject.org/pub/wdune/wdune-%{version}.tar.bz2
 Patch0:		wdune-1.874-compile.patch
 Patch1:		wdune-1.956-ffmpeg9.patch
+Patch2:		wdune-1.956-flex-c23.patch
 Group:		Graphics
 BuildRequires:	automake
 BuildRequires:	libtool-base

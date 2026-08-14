@@ -1,10 +1,11 @@
 --- a/src/NodeMovieTexture.cpp	2026-08-14 19:22:51.334575643 +0200
 +++ b/src/NodeMovieTexture.cpp	2026-08-14 19:23:02.046704106 +0200
-@@ -592,6 +592,7 @@
+@@ -592,6 +592,8 @@
      //#include "libavutil/mathematics.h"
      //#include "libavutil/pixdesc.h"
      #include "libavutil/imgutils.h"
 +    #include "libavutil/channel_layout.h"
++    #include "libavcodec/avcodec.h"
      //#include "libavutil/pixfmt.h"
      //#include "libavutil/dict.h"
      //#include "libavutil/parseutils.h"
