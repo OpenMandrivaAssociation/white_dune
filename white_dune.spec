@@ -1,6 +1,4 @@
 %global debug_package %{nil}
-# gif.c still uses K&R forward declarations
-%global optflags %{optflags} -std=gnu17
 
 Name:		white_dune
 Summary:	A graphical VRML97 editor and animation tool
@@ -73,6 +71,8 @@ the source package.
 # We patch configure.in for gomp vs. omp
 autoconf
 . %{_sysconfdir}/profile.d/90java.sh
+# gif.c K&R prototypes; do not put -std=gnu17 in optflags (breaks C++)
+export CFLAGS="${CFLAGS:-%{optflags}} -std=gnu17"
 %configure --with-optimization \
 	--without-usrlocalinclude \
 	--with-imageconverter=%{_bindir}/convert \
