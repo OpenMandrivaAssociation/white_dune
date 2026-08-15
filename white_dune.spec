@@ -1,4 +1,6 @@
 %global debug_package %{nil}
+# lld LTO aborts while linking bin/dune
+%global _lto_cflags %{nil}
 
 Name:		white_dune
 Summary:	A graphical VRML97 editor and animation tool
@@ -73,6 +75,10 @@ autoconf
 . %{_sysconfdir}/profile.d/90java.sh
 # gif.c K&R prototypes; do not put -std=gnu17 in optflags (breaks C++)
 export CFLAGS="${CFLAGS:-%{optflags}} -std=gnu17"
+# lld LTO aborts in LLVM while linking bin/dune
+export CFLAGS="$(echo "$CFLAGS" | sed 's/-flto//g')"
+export CXXFLAGS="$(echo "${CXXFLAGS:-%{optflags}}" | sed 's/-flto//g')"
+export LDFLAGS="$(echo "${LDFLAGS:-}" | sed 's/-flto//g')"
 %configure --with-optimization \
 	--without-usrlocalinclude \
 	--with-imageconverter=%{_bindir}/convert \
