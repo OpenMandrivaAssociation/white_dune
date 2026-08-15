@@ -1,0 +1,42 @@
+--- a/src/PointFtgl.h	2026-08-15 18:32:13.884617343 +0200
++++ b/src/PointFtgl.h	2026-08-15 18:32:16.076079289 +0200
+@@ -40,13 +40,19 @@
+ 
+ /**
+  * Point class is a basic 3-dimensional point or vector.
++ *
++ * Named FtglPoint so LTO does not ODR-merge it with src/Point.h
++ * (int x, y), which shares the debug identifier _ZTS5Point.
+  */
+-class Point {
++class FtglPoint;
++typedef FtglPoint Point;
++
++class FtglPoint {
+     public:
+         /**
+          * Default constructor. Point is set to zero.
+          */
+-        Point()
++        FtglPoint()
+         {
+             values[0] = 0;
+             values[1] = 0;
+@@ -60,7 +66,7 @@
+          * @param y Second component
+          * @param z Third component
+          */
+-        Point(const double x, const double y,
++        FtglPoint(const double x, const double y,
+                      const double z = 0)
+         {
+             values[0] = x;
+@@ -73,7 +79,7 @@
+          *
+          * @param ft_vector A freetype vector
+          */
+-        inline Point(const FT_Vector& ft_vector)
++        inline FtglPoint(const FT_Vector& ft_vector)
+         {
+             values[0] = ft_vector.x;
+             values[1] = ft_vector.y;
