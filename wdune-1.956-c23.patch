@@ -1,0 +1,11 @@
+--- a/src/Vectoriser.cpp	2026-08-15 02:03:18.033251183 +0200
++++ b/src/Vectoriser.cpp	2026-08-15 02:03:18.033303223 +0200
+@@ -69,7 +69,7 @@
+     for(int i = 0; i < ftContourCount; ++i)
+     {
+         FT_Vector* pointList = &outline.points[startIndex];
+-        char* tagList = &outline.tags[startIndex];
++        char* tagList = reinterpret_cast<char*>(&outline.tags[startIndex]);
+ 
+         endIndex = outline.contours[i];
+         contourLength =  (endIndex - startIndex) + 1;

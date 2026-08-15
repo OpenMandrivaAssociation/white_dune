@@ -1,4 +1,6 @@
 %global debug_package %{nil}
+# gif.c still uses K&R forward declarations
+%global optflags %{optflags} -std=gnu17
 
 Name:		white_dune
 Summary:	A graphical VRML97 editor and animation tool
@@ -9,6 +11,7 @@ Patch0:		wdune-1.874-compile.patch
 Patch1:		wdune-1.956-ffmpeg9.patch
 Patch2:		wdune-1.956-flex-c23.patch
 Patch3:		wdune-1.956-xmu.patch
+Patch4:		wdune-1.956-c23.patch
 Group:		Graphics
 BuildRequires:	automake
 BuildRequires:	libtool-base
