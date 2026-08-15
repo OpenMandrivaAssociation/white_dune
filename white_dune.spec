@@ -84,6 +84,10 @@ export CFLAGS="${CFLAGS:-%{optflags}} -std=gnu17"
 	--with-movieeditor=%{_bindir}/kdenlive
 
 %build
+# LLVM 23 LTO verifier aborts on Point dbg fragments in Vectoriser.cpp
+# ("fragment is larger than or outside of variable"). Keep LTO for the rest.
+make %{?_smp_mflags} -C src Vectoriser.o \
+	'CXXFLAGS=%{optflags} -fno-lto -gline-tables-only'
 %make_build
 
 %install
